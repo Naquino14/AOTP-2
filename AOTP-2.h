@@ -17,9 +17,9 @@ typedef struct AOTP2_t {
     /// @brief TOTP epoch
     long epoch;
     /// @brief The code buffer
-    volatile uint8_t** code;
+    volatile uint8_t* code;
     /// @brief The TOTP key
-    const uint8_t key[AOTP_KEY_SIZE];
+    uint8_t key[AOTP_KEY_SIZE];
     /// @brief The lifespan of a code.
     int duration;
 } AOTP2;
