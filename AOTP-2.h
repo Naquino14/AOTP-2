@@ -7,14 +7,6 @@
 #include <stdio.h>
 #endif  // !_STDIO_H
 
-#ifndef _UNISTD_H
-#include <unistd.h>
-#endif  // !_UNISTD_H
-
-#ifndef _PTHREAD_H
-#include <pthread.h>
-#endif  // !_PTHREAD_H
-
 /// AOTP Key size
 #define AOTP_KEY_SIZE 16
 /// AOTP Code length
@@ -54,12 +46,12 @@ AOTP2* createConfig(uint8_t* key, long epoch, int duration, long (*unixTime)(voi
 
 /// @brief read a code, as a hex string, safely, from an AOTP-2 config into a buffer.
 /// @param buf the string to store the code. Must be at least 9 characters long.
-/// @param conf
+/// @param conf the AOTP config
 void readCode(char* buf, AOTP2* conf);
 
 /// @brief read a raw code, safely, from an AOTP-2 config into a buffer.
 /// @param buf the buffer to store the raw code. Must be at least 4 bytes long.
-/// @param conf
+/// @param conf the AOTP config
 void readCodeRaw(uint8_t* buf, AOTP2* conf);
 
 /// @brief Destroy an AOTP-2 config
