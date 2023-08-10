@@ -3,6 +3,18 @@
 
 #include "lib/ACH-2.h"
 
+#ifndef _STDIO_H
+#include <stdio.h>
+#endif  // !_STDIO_H
+
+#ifndef _UNISTD_H
+#include <unistd.h>
+#endif  // !_UNISTD_H
+
+#ifndef _PTHREAD_H
+#include <pthread.h>
+#endif  // !_PTHREAD_H
+
 /// AOTP Key size
 #define AOTP_KEY_SIZE 16
 /// AOTP Code length
@@ -14,12 +26,16 @@
 typedef struct AOTP2_t {
     /// @brief The Unix timestamp function
     long (*unixTime)(void);
+
     /// @brief TOTP epoch
     long epoch;
-    /// @brief The code buffer
-    volatile uint8_t* code;
+
+    /// @brief The code buffer, 4 bytes long
+    uint8_t* code;
+
     /// @brief The TOTP key
     uint8_t key[AOTP_KEY_SIZE];
+
     /// @brief The lifespan of a code.
     int duration;
 } AOTP2;
@@ -37,7 +53,7 @@ extern "C" {
 AOTP2* createConfig(uint8_t* key, long epoch, int duration, long (*unixTime)(void));
 
 /// @brief read a code, as a hex string, safely, from an AOTP-2 config into a buffer.
-/// @param buf the buffer to store the code. Must be at least 8 characters long.
+/// @param buf the string to store the code. Must be at least 9 characters long.
 /// @param conf
 void readCode(char* buf, AOTP2* conf);
 
